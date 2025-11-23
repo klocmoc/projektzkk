@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Artykuł - ZSET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --bg: #100f10;
+            --card: #3d2d2d;
+            --muted: #ffffff;
+            --accent: #b91d1d;
+            --text: #f6f6f7;
+            --maxwidth: 900px;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system;
+            background: linear-gradient(180deg, var(--bg), #3d3636 180%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .container {
+            max-width: var(--maxwidth);
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+        
+        .btn.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        
+        .article-header img {
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 18px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+        }
+        
+        .article-content {
+            margin-top: 24px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html">← Powrót na stronę główną</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="article-header">
+            <h1>Tytuł artykułu</h1>
+            <p class="muted">Data publikacji: 24.11.2025 • Autor: ZSET</p>
+            <img src="imgs/stop_manipulaji.jpg" alt="Zdjęcie artykułu">
+        </div>
+
+        <div class="article-content">
+            <h2>Wprowadzenie</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae nisi in nunc egestas sollicitudin. Morbi fermentum quam vel turpis cursus, vitae hendrerit magna semper.
+            </p>
+
+            <h2>Główna treść</h2>
+            <p>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            </p>
+
+            <p>
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+            </p>
+
+            <h2>Podsumowanie</h2>
+            <p>
+                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit.
+            </p>
+
+            <a href="stronazkk.html" class="btn primary">← Wróć</a>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2025 ZSET - All rights reserved.
+    </footer>
+
+</body>
+
+</html>

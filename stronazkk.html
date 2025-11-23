@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ZSET</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --bg: #100f10;
+            --card: #3d2d2d;
+            --muted: #ffffff;
+            --accent: #b91d1d;
+            --text: #f6f6f7;
+            --maxwidth: 1100px;
+        }
+        
+        * {
+            box-sizing: border-box
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg, var(--bg), #3d3636 180%);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+        
+        header {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(6px) saturate(120%);
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.2));
+            z-index: 40;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        
+        .container {
+            max-width: var(--maxwidth);
+            margin: 0 auto;
+            padding: 18px 20px;
+            text-align: justify;
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        
+        .brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 20px
+        }
+        
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 18px;
+            align-items: center
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px
+        }
+        
+        nav a.small {
+            color: var(--muted);
+            font-weight: 500
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 0;
+            color: var(--text);
+            font-size: 20px
+        }
+        
+        .hero {
+            padding: 56px 20px 34px;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 28px;
+            align-items: center;
+        }
+        
+        .hero .left h1 {
+            font-size: 44px;
+            margin: 0 0 12px
+        }
+        
+        .hero .left p {
+            color: var(--muted);
+            margin: 0 0 18px
+        }
+        
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none
+        }
+        
+        .btn.primary {
+            background: var(--accent);
+            color: #fff
+        }
+        
+        .btn.ghost {
+            border: 1px solid rgb(255, 0, 0);
+            color: var(--text);
+            background: transparent
+        }
+        
+        .hero .right {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+            padding: 18px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .cover {
+            width: 100%;
+            height: 340px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6)
+        }
+        
+        section {
+            padding: 28px 0
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 12px
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 14px
+        }
+        
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+            padding: 14px;
+            border-radius: 10px
+        }
+        
+        .card h3 {
+            margin: 6px 0 8px
+        }
+        
+        .meta {
+            color: var(--muted);
+            font-size: 13px
+        }
+        
+        footer {
+            padding: 28px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--muted);
+            font-size: 14px
+        }
+        /* Responsive */
+        
+        @media (max-width:1000px) {
+            .hero {
+                grid-template-columns: 1fr 1fr
+            }
+            .grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+            .side-image {
+                display: none
+            }
+        }
+        
+        @media (max-width:720px) {
+            nav ul {
+                display: none
+            }
+            .menu-toggle {
+                display: inline-block
+            }
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 28px 14px
+            }
+            .hero .right {
+                order: 2;
+            }
+            .grid {
+                grid-template-columns: 1fr
+            }
+            .container {
+                padding: 12px
+            }
+        }
+        
+        .muted {
+            color: var(--muted)
+        }
+        
+        .card,
+        .container {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn {
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: scale(1.08);
+        }
+        
+        .hero {
+            padding-right: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav">
+            <div style="display:flex;gap:18px;align-items:center">
+                <div class="brand">ZSET</div>
+                <button class="menu-toggle" id="menuToggle" aria-controls="mainNav" aria-expanded="false">☰</button>
+            </div>
+
+            <nav id="mainNav" aria-label="Główna nawigacja">
+                <ul>
+                    <li><a href="#">Strona Główna</a></li>
+                    <li><a href="#listen">Social media</a></li>
+                    <li><a href="#shop">Artykuły</a></li>
+                    <li><a href="aboutus.html">O nas i nasza działalność</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="left container">
+                <h1>Oficjalna strona ZSET - Kampania dotycząca fake newsów</h1>
+                <p class="muted">Zobacz najnowsze artykuły, nasze social media i przestrzegaj sie przed fake newsami.</p>
+                <div class="cta-row">
+                    <a class="btn primary" href="#shop">Artykuły</a>
+                    <a class="btn ghost" href="#shop">Statystyki</a>
+                </div>
+            </div>
+
+            <div class="right container">
+                <div class="cover" style="background-image:url('imgs/logo.jpg')" aria-hidden="true"></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+                    <div>
+                        <strong>Nasza działaność</strong>
+                        <div class="muted"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="latest" class="container">
+            <div class="section-title">
+                <h2>Informacje</h2>
+                <a href="#" class="muted">Zobacz wyszystko</a>
+            </div>
+
+            <div class="grid" aria-live="polite">
+                <article class="card" href="" class="muted">
+                    <img src="https://graphicsprings.com/wp-content/uploads/2023/09/image-146.png" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+                    <h3>Nasz tiktok</h3>
+                    <p class="muted">Tutaj znajdziesz nasze dziłania w krótkiej formie</p>
+                    <a class="btn primary" href="https://www.instagram.com/zset_kampania_fakenews/?fbclid=IwY2xjawOPu2hleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAEwAAEeSNDi65qRQGc9g5huY3om2cq9Wc3RftD5-uQNYz7YsnD6HXvgg0P5XYE7-uk_aem_Fv5y2NYqvM8yaVyruAOXGw">Zobacz teraz</a>
+                </article>
+
+                <article class="card">
+                    <img src="https://cdn.images.express.co.uk/img/dynamic/59/590x/Instagram-logo-1011468.jpg?r=1535748410906" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+                    <h3>Nasz Instagram</h3>
+                    <p class="muted">Tutaj znajdziesz nasze dziłania zapisane w formie instagrama</p>
+                    <a class="btn primary" href="https://www.instagram.com/zset_kampania_fakenews/?fbclid=IwY2xjawOPu2hleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAEwAAEeSNDi65qRQGc9g5huY3om2cq9Wc3RftD5-uQNYz7YsnD6HXvgg0P5XYE7-uk_aem_Fv5y2NYqvM8yaVyruAOXGw">Zobacz teraz</a>
+                </article>
+
+                <article class="card">
+                    <img src="https://lh3.googleusercontent.com/proxy/FC9Sl3zHwsZVjgxUjBUnTBPLQR2vhYyJSJ2Dds_g0diDSUae1vnrO-vfjJq6Qv-yzeuaylAoHLmVqjeAfSbfDmJxtN3qnxPUkCBdnhjf5g" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:8px">
+                    <h3>Nasza prezentacja</h3>
+                    <p class="muted">Prezentacja która stworzyliśmy by uświdamiać ludzią by nie wierzyli we wszystkie rzeczy w internecie</p>
+                    <a class="btn primary" href="https://www.instagram.com/zset_kampania_fakenews/?fbclid=IwY2xjawOPu2hleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAEwAAEeSNDi65qRQGc9g5huY3om2cq9Wc3RftD5-uQNYz7YsnD6HXvgg0P5XYE7-uk_aem_Fv5y2NYqvM8yaVyruAOXGw">Zobacz teraz</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="shop" class="container">
+            <div style="background:var(--card);padding:14px;border-radius:10px; display:flex; align-items:center; gap:16px; margin-bottom: 20px;">
+
+                <div style="flex:1">
+                    <h3>Tytuł artykułu</h3>
+                    <p class="muted">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <a class="btn primary" href="article3.html">Zobacz teraz</a>
+                </div>
+
+                <div style="flex:1; display:flex; justify-content:center;">
+                    <img src="imgs/stop_manipulaji.jpg" alt="Merch" style="width:200px; border-radius:8px;">
+                </div>
+            </div>
+            <div style="background:var(--card);padding:14px;border-radius:10px; display:flex; align-items:center; gap:16px; margin-bottom: 20px; ">
+
+                <div style="flex:1">
+                    <h3>Tytuł artykułu</h3>
+                    <p class="muted">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <a class="btn primary" href="article2.html">Zobacz teraz</a>
+                </div>
+
+                <div style="flex:1; display:flex; justify-content:center;">
+                    <img src="imgs/stop_manipulaji.jpg" alt="Merch" style="width:200px; border-radius:8px;">
+                </div>
+            </div>
+            <div style="background:var(--card);padding:14px;border-radius:10px; display:flex; align-items:center; gap:16px; margin-bottom: 20px;">
+
+                <div style="flex:1">
+                    <h3>Tytuł artykułu</h3>
+                    <p class="muted">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <a class="btn primary" href="article.html">Zobacz teraz</a>
+                </div>
+
+                <div style="flex:1; display:flex; justify-content:center;">
+                    <img src="imgs/stop_manipulaji.jpg" alt="Merch" style="width:200px; border-radius:8px;">
+                </div>
+            </div>
+            </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <div>© 2025 ZSET - All rights reserved.</div>
+            <div style="display:flex;gap:14px;align-items:center">
+                <a href="#" class="muted">Privacy</a>
+                <a href="#" class="muted">Cookies</a>
+                <a href="#" class="muted">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        menuToggle && menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', String(!expanded));
+
+            const ul = mainNav.querySelector('ul');
+            if (ul.style.display === 'flex') ul.style.display = '';
+            else ul.style.display = 'flex';
+        });
+    </script>
+</body>
+
+</html>
